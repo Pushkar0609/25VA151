@@ -1,0 +1,344 @@
+<!-- Create Web page for College
+timetable: Use of tables with
+rowspan, colspan, headers,
+captions, and nested tables -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="ABES.png" type="image/png" />
+    <title>ABES ENGINEERING COLLEGE </title>
+    <!-- Load Tailwind CSS for modern, aesthetic, and responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Base styles using Tailwind structure, customized for black/white/gray look */
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: white;
+            color: #1f2937;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* --- Main Timetable Styles --- */
+        .main-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            border: 2px solid #000;
+            table-layout: fixed;
+        }
+
+        .main-table th, .main-table td {
+            border: 1px solid #333;
+            padding: 6px 4px;
+            text-align: center;
+            font-size: 11px;
+            vertical-align: middle;
+            height: 60px;
+        }
+
+        /* Gray shading for headers (Time and Day) */
+        .time-header, .day-header {
+            background-color: #e5e7eb; 
+            font-weight: bold;
+        }
+
+        /* Special style for LUNCH cell */
+        .lunch-cell {
+            background-color: #f3f4f6;
+            font-weight: 700;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        /* Nested Table Style */
+        .nested-table {
+            width: 100%;
+            height: 100%;
+            border-collapse: collapse;
+        }
+
+        .nested-table td {
+            border: none;
+            padding: 0; 
+            line-height: 1.1;
+            font-size: 11px;
+            height: auto;
+        }
+
+        /* --- Legend Table Styles --- */
+        .legend-table {
+             width: 100%;
+             border-collapse: collapse;
+             margin: 10px 0;
+             font-size: 11px;
+        }
+        
+        .legend-table th, .legend-table td {
+             border: 1px solid #333;
+             padding: 6px;
+             text-align: left;
+        }
+
+        .legend-table th {
+             background-color: #e5e7eb;
+             font-weight: bold;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 1024px) {
+            .main-table th, .main-table td {
+                font-size: 10px;
+                padding: 4px;
+                height: 50px;
+            }
+            .lunch-cell {
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            .main-table {
+                width: 100%;
+                min-width: 600px;
+                font-size: 9px;
+            }
+            
+            .main-table th, .main-table td {
+                padding: 3px 2px;
+                font-size: 8px;
+                height: 40px;
+            }
+            
+            .lunch-cell {
+                font-size: 10px;
+            }
+            
+            .container {
+                max-width: 100%;
+            }
+            
+            .legend-table {
+                font-size: 9px;
+            }
+            
+            .legend-table th, .legend-table td {
+                padding: 4px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .main-table {
+                min-width: 500px;
+            }
+            
+            .main-table th, .main-table td {
+                font-size: 7px;
+                padding: 2px 1px;
+                height: 35px;
+            }
+            
+            .lunch-cell {
+                font-size: 8px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="text-right mb-4">
+         <img src="ABES.png" alt="ABES Logo"  class="h-16 mx-auto md:mx-0"> 
+    </div>
+    
+    <div class="container">
+        <!-- Header Section -->
+        <header class="text-center mb-8">
+            <h1 class="text-2xl font-extrabold mb-1"><big>ABES ENGINEERING COLLEGE,<br> Ghaziabad</big></h1>
+            <h3 class="text-xl font-bold mt-1"><big>Class Time Table</big></h3>
+    </header>
+   
+        <!-- Info Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs mb-8 p-4 border border-gray-300 rounded-lg">
+            <div class="space-y-1">
+                <div><span class="font-bold">Course:</span> B.Tech</div>
+                <div><span class="font-bold">Semester / Section:</span> I/CSE-23</div>
+                <div><span class="font-bold">Department:</span> Applied Science and Humanities</div>
+            </div>
+            <!-- <div class="space-y-1 text-right md:text-left"> -->
+                <div><span class="font-bold">Document :</span> TM-07</div>
+                <div><span class="font-bold">Effective Date (w.e.f):</span> 13.10.2025</div>
+                <div><span class="font-bold">Session:</span> 2025-26, Odd Semester</div>
+            </div>
+        </div>
+        
+        <!-- Timetable Container -->
+        <div class="timetable-container overflow-x-auto">
+            <table class="main-table">
+                <!-- CAPTION: Describes the entire table content -->
+                <!-- <caption style="caption-side: top; font-size: 16px; font-weight: bold; padding: 10px 0;"> -->
+                   <H1><b> B.Tech. I Year (Section I CSE-23) - Weekly Schedule<br>Class Room No.RJ-101,RJ-102, RJ-103,RJ-203, RJ-204 , RJ-305 , BH-309 </H1>
+                <!-- </caption> -->
+                
+                <!-- THEAD: Column Headers (Periods/Time Slots) -->
+                <thead>
+                    <tr>
+                        <!-- ROWSPAN: Top-left corner cell spans 2 rows -->
+                        <th class="time-header" rowspan="2">Day<br>Time</th>
+                        <th colspan="5" class="time-header">Morning Session</th>
+                        <th rowspan="2" class="time-header">VI<br>01:10-02:00</th>
+                        <th colspan="3" class="time-header">Afternoon Session</th>
+                    </tr>
+                    <tr>
+                        <th class="time-header">I<br>08:50-09:40</th>
+                        <th class="time-header">II<br>09:40-10:30</th>
+                        <th class="time-header">III<br>10:40-11:30</th>
+                        <th class="time-header">IV<br>11:30-12:20</th>
+                        <th class="time-header">V<br>12:20-01:10</th>
+                        <th class="time-header">VII<br>02:00-02:50</th>
+                        <th class="time-header">VIII<br>02:50-03:40</th>
+                        <th class="time-header">IX<br>03:40-04:30</th>
+                    </tr>
+                </thead>
+                
+                <!-- TBODY: Days as Rows (Standard Orientation) -->
+                <tbody>
+                    <!-- Monday Row -->
+                    <tr>
+                        <th scope="row" class="day-header">Monday</th>
+                        <td>25EC101 <BR>(SA)<br>RJ-102</td>
+                        <td>25HU101<BR>(SSG)<br>RJ-102</td>
+                        <td>
+                         <table class="nested-table">
+                                <tr><td style="border: none; padding: 0;">25ME101<br> (MYK)<BR> RJ-102</td></tr>
+                               
+                            </table>
+                        </td>
+                        <td>25AS102 <BR>(ABL)<br>RJ-102</td>
+                        <td>25HU102 <br>(VM)<br>RJ-102</td>
+                        <td rowspan="5" class="lunch-cell">LUNCH</td> <!-- ROWSPAN: LUNCH spans 5 rows -->
+                        <td>25AS102<br> (ABL)<br>RJ-204</td>
+                        <td colspan="2">25EC151  <br>(SA,RA)<br>Bhabha Block I Floor (BH-115)</td> <!-- COLSPAN 2 -->
+                    </tr>
+                    <!-- Tuesday Row -->
+                    <tr>
+                        <th scope="row" class="day-header">Tuesday</th>
+                        <td colspan="2">25VA151<br> (SSI)<br>BH-309</td>
+                        <td>25CS101<br> (AKS)<br>RJ-102</td>
+                        <td>25CS101<br> (AKS)<br>RJ-102</td>
+                        <td>25EC101<br> (SA)<br>RJ-102</td>
+                        <td>25ME101<br> (MYK)<br>RJ-103</td>
+                        
+                        <td>25HU101<br> (SSG)<br>RJ-103</td>
+                        <td>25AS102<br> (ABL)<br>RJ-103</td>
+                    </tr>
+                    <!-- Wednesday Row -->
+                    <tr>
+                        <th scope="row" class="day-header">Wednesday</th>
+                        <td>25HU102<br> (VM)<br>RJ-103</td>
+                        <td>25ME101<br> (MYK)<br>RJ-103</td>
+                        <td>25AS102<br> (ABL)<br>RJ-103</td>
+                        <td>25EC101<br> (SA)<br>RJ-103</td>
+                        <td>25HU101<br> (SSG)<br>RJ-103</td>
+                        <td colspan="2">25CS151  <BR>(AKS)<br>RJ-203</td> <!-- COLSPAN 2 -->
+                        <td></td>
+                    </tr>
+                    <!-- Thursday Row -->
+                    <tr>
+                        <th scope="row" class="day-header">Thursday</th>
+                        <td>25CS101<br> (AKS)<br>RJ-103</td>
+                        <td>25CS101<br> (AKS)<br>RJ-103</td>
+                        <td>25ME101<br> (MYK)<br>RJ-103</td>
+                        <td>25EC101<br> (SA)<br>RJ-103</td>
+                        <td>25AS102<br> (ABL)<br>RJ-103</td>
+                        <td >Mentor-Mentee (SA, AKS)<br>RJ-305</td> <!-- COLSPAN 2 -->
+                        <td colspan="2">25HU151<br> (SSG,KG)<br>KC Block V Floor (KC-510)</td> 
+                    </tr>
+                    <!-- Friday Row -->
+                    <tr>
+                        <th scope="row" class="day-header">Friday</th>
+                        <td>25ME101<br> (MYK)<br>RJ-102</td>
+                        <td>25AS102<br> (ABL)<br>RJ-102</td>
+                        <td colspan="2">25ME151 <BR> (MYK, DRK)<br>Vishwakarma Block Ground Floor</td> <!-- COLSPAN 2 -->
+                        <td>25VA151<br> (SSI)<br>RJ-101</td>
+                        <td>25AS102<br> (ABL)<br>RJ-103</td>
+                        <td>25EC101<br> (SA)<br>RJ-103</td>
+                        <td>25HU102<br> (VM)<br>RJ-103</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Legend Section (Simplified and Combined) -->
+        <div class="legend-section">
+            <h4 class="text-sm font-bold mt-6 mb-2">SUBJECT FACULTY & LAB DETAILS</h4>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <!-- Theory Subjects Table -->
+                <div>
+                    <h5 class="font-semibold mb-1 text-xs">Theory Subjects</h5>
+                    <table class="legend-table" >
+                        <thead>
+                            <tr>
+                            
+                               
+                                     <th style="text-align: center;" class="w-1/4">SUBCODE</th> 
+                                     <th style="text-align: center;" class="w-2/4">SUBNAME</th> 
+                                  <th style="text-align: center;" class="w-1/4">FACULTY (Abbr.)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>25ME101<br></td><td>Basics of Mechanical & Automation Engg.</td><td>Mr. Mayank Kushwaha (MYK)</td></tr>
+                            <tr><td>25EC101<br></td><td>Basics of Electronics Engg.</td><td>Mr. Shahbaz Alam (SA)</td></tr>
+                            <tr><td>25AS102<br></td><td>Fundamental of Linear Algebra and Statistics</td><td>Dr. Arti Bansal (ABL)</td></tr>
+                            <tr><td>25CS101<br></td><td>Data Structure</td><td>Ms. Akshita Sharma (AKS)</td></tr>
+                            <tr><td>25HU101<br></td><td>Soft Skills</td><td>Dr. Shruti Singh (SSG)</td></tr>
+                            <tr><td>25HU102<br></td><td>Design Thinking</td><td>Dr. Varun Mohan (VM)</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Lab/Practical Subjects Table -->
+                <div>
+                    <h5 class="font-semibold mb-1 text-xs">Labs & Practical Modules</h5>
+                    <table class="legend-table">
+                        <thead>
+                            <tr>
+                                <th style="text-align: center;" class="w-1/4">LABCODE</th>
+                                <th style="text-align: center;" class="w-1/4">LAB NAME</th>
+                                <th style="text-align: center;" class="w-1/4">FACULTY (Abbr.)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>25CS151<br></td><td>Data Structure Lab</td><td>Ms. Akshita Sharma (AKS)</td></tr>
+                            <tr><td>25HU151<br></td><td>Professional Communication Lab</td><td>Dr. Shruti Singh (SSG), Ms. Khushi Goel (KG)</td></tr>
+                            <tr><td>25EC151<br></td><td>Basic Electronics Engg. Lab</td><td>Mr. Shahbaz Alam (SA), Dr. Ritu Agarwal (RA)</td></tr>
+                            <tr><td>25ME151<br></td><td>Digital Manufacturing Lab</td><td>Mr. Mayank Kushwaha (MYK), Dr. Raushan Kumar (DRK)</td></tr>
+                            <tr><td>25VA151<br></td><td>Web Designing Workshop I</td><td>Mr. Sanjeev Soni (SSI)</td></tr>
+                            <tr><td>Mentor-<br>Mentee</td><td>Mentor-<br>Mentee</td><td>Mr. Shahbaz Alam (SA),<br> Ms. Akshita Sharma (AKS)</td></tr>
+                                                         </tbody>
+                          </table>
+                  </div>
+                      </div>
+                                           </div>
+        
+        
+        <div class="admin-info text-xs mt-8 pt-4 border-t border-gray-400">
+            <div class="font-bold">Academic Program Coordinator: Dr. Shweta Choudhary</div> 
+            <div class="font-bold mt-2">Class Mentors:</div> 
+            <div><span class="font-semibold">Mentor-1:</span> Mr. Shahbaz Alam (SA)</div>
+            <div><span class="font-semibold">Mentor-2:</span> Ms. Akshita Sharma (AKS)</div>
+          
+        </div>
+    </div>
+</body>
+</html>
